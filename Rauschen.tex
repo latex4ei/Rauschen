@@ -1,0 +1,375 @@
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% Formelsammlung von LaTeX4EI									
+%
+% @encode: 	UTF-8, tabwidth = 4, newline = LF
+% @author:	Emanuel Regnath
+% @date:		
+%
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+
+%---------------------------------------%
+%			P R E A M B L E				%
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+
+% Document Class ===============================================================
+\documentclass[fs, footer]{latex4ei}
+
+
+
+\newcommand{\sm}[1]{\langle#1\rangle}
+
+
+% Dokumentbeginn
+% ======================================================================
+\begin{document}
+
+
+% Aufteilung in Spalten
+\begin{multicols}{4}
+% -----------------------------------------------
+% | 			R A U S C H E N			 		|
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%===============================================================================================================================
+
+% TITLE ========================================================================
+\fstitle{Rauschen}
+
+
+\emphbox{ Rauschen ist ein stochastisches, gleichanteilfreies Signal,\\ welches keiner Regelmäßigkeit folgt. }
+
+	\section{Rauschen im Zeitbereich}
+
+\sectionbox{
+	Allgemeine rauschende Größe $A(t)$ mit \\
+	Mittelwert bzw. Gleichanteil $\ol{A(t)} = \lim\limits_{T \ra \infty} \frac{1}{2T} \int\limits_{-T}^T A(t) \diff t$\\
+	Rein rauschende Größe $a(t) = A(t) - \ol{A(t)}$ \qquad\qquad $\ol{a(t)} = 0$\\
+
+	Für kleine $\tau$ lässt sich abschätzen in welchen Bereich das Signal verlaufen wird. (Max. Freq.)
+}
+
+
+\sectionbox{
+	\subsection{Schwankungsquadrat (2. zentrales Moment, Varianz)}
+	Ein Maß für die Rauschleistung ist die Varianz oder\\
+	Schwankungsquadrat $\sigma^2 = \ol{a^2} = \ol{A^2} - \ol{A}^2$\\
+	mit Gesamtleistung $\ol{A^2}$ und Gleichleistung $\ol{A}^2$\\ 
+	\boxed{ \underset{\text{Gesamtleistung}}{\ol{A^2}} = \underset{\text{Gleichleistung}}{\ol{A}^2} + \underset{\text{Rauschleistung}}{\ol{a^2}} }\\
+	Effektivwert (RMS) $\sigma = \sqrt{\ol{a^2}}$\\
+	\\
+	Höhere Momente: $\ol{A^n} = \int\limits_{-\infty}^\infty A^n \P(A) \diff A$\\
+}
+
+
+\sectionbox{	
+	\subsection{Scharmittel}
+	Bei $N$ gleichen Verstärker\\
+	$\sm{A} = \lim\limits_{N \ra \infty} \frac{1}{N} \sum A$\\
+	Falls $\sm{A} \equiv \ol{A}$, dann egodisches Rauschen\\
+	Fast alle Rauschenarten in dieser VL sind stationäres Rauschen\\
+}
+
+	\subsection{Korrelation}
+	Korrelationskoeffizient $c_{12} = \frac{\ol{a_1 a_2}}{\sqrt{\ol {a_1^2}} \sqrt{\ol {a_2^2}} } = \frac{\ol{a_1 a_2}}{\sigma_1 \sigma_2}$\\
+	$c_{12} = 0$ notwendig aber nicht hinreichend für unkorrelierte Größen.\\
+	
+
+
+\sectionbox{
+\subsection{Korrelation}
+Ein Maß für die Ähnlichkeit zweier Signale $x(t), y(t)$ bei Verschiebung.\\
+Korrelationskoeffizient $c_{xy} = \frac{E_{xy}}{\sqrt{E_x \cdot E_y}} = \frac{\varphi_{xy}(0)}{ \sqrt{\varphi_x(0) \cdot \varphi_y(0)}}$\\
+\\
+Es gilt: Korreliert $c = 1$, Orthogonal $\rho = 0$, Antipodisch $\rho = -1$\\
+\\
+\textbf{Kreuzkorrelationsfkt.} zwischen zueinander verschobenen Signalen:\\
+	\emphbox{ $\displaystyle \varphi_{xy} (\tau) =  \varphi_{yx}(-\tau) = \int\limits_{-\infty}^{\infty} x(t) \cdot y(t+\tau) \diff t$ }
+	Zusammenhang mit Faltung: $\varphi_{xy} (\tau) = x(-t) * y(t)|_{t = \tau}$\\
+	\\
+\textbf{Autokorrelationsfkt. AKF} ist Kreuzkorrelation mit sich selbst ($y = x$):\\
+$\varphi_x (\tau) = \varphi_{xx}(\tau)$ \qquad Anwendung: Erkennen von Perioden\\ 
+\\
+\textbf{Energiebeziehung:} $E_{x,y} = \rho_{x,y} \sqrt{E_x E_y}$ mit \\
+\textbf{Energie} $E_x = \int\limits_{- \infty}^{\infty} x(t)^2 \diff t = \int\limits_{- \infty}^{\infty} \Phi_x \diff f = \varphi_{xx}(0)$ \quad (endl. Sig.)\\
+\textbf{Leistung} $P_x = \E[\X^2] = \frac{1}{2T} \int\limits_{-T}^{T} x(t)^2 \diff t$ \qquad\qquad (period. Sig.)\\
+\textbf{Leistungsdichtespektrum} $\Phi_x(f)$ ist definiert als $\varphi_x \FT \Phi(f)$\\
+
+Periodische Signale: $\overline \varphi_{xy}(\tau) = \frac{1}{2T} \int_{-T}^{T} x(t) y(t+\tau) \diff t$\\
+\textbf{Stochastische Signale:} $\varphi_{\X\Y}(\tau) = \E[\X(t) \cdot \Y(t+\tau)]$\\
+$\rho_{\X,\Y} = \frac{\Cov[\X \Y]}{\sigma_{\X} \sigma_{\Y}}$\\
+$\int \limits_{-\infty}^{\infty} \PSD_{\X}(f) \diff f = \ACF_{\X}(0) = \Var[\X] + \E[\X]^2 = \sigma^2_{\X} + \mu^2_{\X}$
+}
+
+
+\sectionbox{
+	\subsection{Grenzwerte}
+	$\rho_a (0) = \ol{a^2} = \sigma^2$ \qquad $\rho_a(\infty) = 0$\\
+	$\rho_A (\tau) = A(t) A(t+\tau) = \ol{A}^2 + \rho_a (\tau)$\\
+	$\rho_A (0) = \ol{A}^2 + \ol{a^2} = \ol{A^2}$\\
+	$\rho_A (\infty) = \ol{A}^2$\\
+}
+
+
+\sectionbox{
+	\subsection{Folge identischer unabhängiger Impulse}
+	Impulsefolge $A(t) = \sum\limits_i A_i(t)$ \qquad $A_i(t) = g_0 (t-t_i)$\\
+	Campbellsches Theorem $\sigma^2 = \ol z \int\limits_{-\infty}^{+\infty} g^2_0(t) \diff t$\\
+	$\ol z$ ist die Rate. Summe der Energie der Einzelimpulse ist die Energie der Fluktuation.\\
+	Ankommende Impulse als Poisson-Prozess
+}
+
+
+	
+	
+
+% ======================================================================
+\section{Arten von Rauschen}
+% ======================================================================
+
+	Weißes Rauschen: Konstante Frequenzverteilung.\\
+	Rosa Rauschen: Fällt mit $\frac{1}{f}$ ab.
+
+	Effektive Rauschspannung $U_{\ir eff} = \sqrt{\ol{U^2_1} + \ol{U^2_2}}$
+
+\sectionbox{
+	\subsection{Thermisches Rauschen}
+	Durch die thermische Gitterschwingungen in einem Leiter erfolgt die Bewegung der Ladungsträger chaotisch.\\
+	Effektivwert des Rauschens: $I_n = \sqrt{4 k_{\ir B} \cdot T \cdot R \cdot \Delta f}$\\
+	Spektrale Dichtefunktion $W_i(f) = 2 e I_0$ \qquad für $f < \SI{e12}{\hertz}$\\
+	Leistungsdichtespektrum $W$
+	
+	\begin{tabular}{ll}
+	Widerstand & Leitwert\\ \mrule
+	$\ol{u^2} = 4 k_{\ir B} \cdot T \cdot R \cdot \Delta f$ & $\ol{i^2} = 4 k_{\ir B} \cdot T \cdot G \cdot \Delta f$\\
+	$W_u(f) = 4 k_{\ir B} \cdot T \cdot R$ & $W_i(f) = 4 k_{\ir B} \cdot T \cdot G$
+	\end{tabular}
+
+	Blindwiderstände ($C,L$) geben keine Rauschleistung ab!! \\
+	$W_u(f) = 4k_{\ir B} T \Re{\cx Z(f)}$ \qquad $W_u(f) = 4k_{\ir B} T \Re{\cx Y(f)}$\\
+	
+	Beispiel $R \parallel C$: $W_u = \frac{4k_{\ir B}TR}{1+(2\pi f RC)^2}$\\
+	$\ol{u_{c^2}} = \frac{k_{\ir B} T}{2}$ \qquad (Bandbegrenztes weißes Rauschen)\\
+	
+	Schwarzer Strahler: $k_{\ir B} T \ge h \cdot f$ Daraus folgt bei $T=\SI{300}{\kelvin}$ weißes Rauschen  bis $\SI{6}{\tera\hertz}$\\
+	
+		\subsubsection{Rauschleistung am Widerstand}
+		Maximale Leistung $R = R_{\ir L}$\\
+		$P_{\ir V} = P(R) = \frac{\ol{U^2}}{4 R} = k_{\ir B} T \Delta f$
+
+		\subsubsection{Modell von Drude}
+		Annahmen: 
+		\begin{itemize}
+			\item isotrope Geschwindigkeitsverteilung
+			\item Freie Flugzeit zwischen Stößen $\tau_{\ir C} = \const$
+			\item Energie ist $\frac{k_{\ir B} T}{2}$
+			\item unabhängige Bewegung
+		\end{itemize}
+
+		$i_q = \frac{e}{l} \cdot v_{xq}$\\
+		$W_0(f) = 4 \int\limits_0^{\tau_C} \ol{i^2} \left( \frac{\tau_C - \tau}{\tau_C} \right) \diff \tau = 2 \ol{i^2} \tau_C$\\
+		$\ol{i^2} = e^2 \frac{n \cdot A}{l} \cdot \frac{k_{\ir B} T}{m}$\\
+		Leitwert: $W_0(f) = 4 k_{\ir B} T G$
+}
+
+\sectionbox{	
+	\subsection{Schrotrauschen}
+	Ursache: Quantisierung der Ladung.\\
+	Schrotrauschen tritt bei Stromfluss $I_0$ über eine Potentialbarriere auf.\\
+	Tunnelndes Teilchen, Poisson-Prozess, Rate bekannt, Zeitpunkte zufällig.\\
+	Effektivwert des Rauschens: $I_n = \sqrt{\ol{i^2}} = \sqrt{2 e \cdot I_0 \cdot \Delta f}$\\
+	Spektrale Dichtefunktion 	
+	$W_{\ir Schrot}(f) = 2 \frac{I_0}{e} \abs{\mathcal F_g(f)}^2$\\
+	$W_0 = 2 e I_0$ \qquad (mit Impulsform $g$)
+}	
+
+\sectionbox{	
+	\subsection{Generations-Rekombinations-Rauschen im TDGGW}
+	$\tau_0$ mittlere Lebensdauer im Zustand 0. Mit WSL $\P_0 = \frac{\tau_0}{\tau_0 + \tau_1}$\\
+	$\tau_1$ mittlere Lebensdauer im Zustand 1. Mit WSL $\P_1 = \frac{\tau_1}{\tau_0 + \tau_1}$\\
+	$\diff \tau$ muss so klein sein, dass nur ein Übergang stattfindet.\\
+	Übergänge $\P_{10} + \P_{11} = 1$\\
+	$\P_{11} (\tau + \diff \tau) = \P_{11}(\tau) \left[1- \frac{\diff \tau}{\tau_1}\right] + \P_{10}(\tau) \frac{\diff \tau}{\tau_0}$\\
+	DGL: $\frac{\P_{11}(\tau + \diff \tau) - \P_{11}(\tau)}{\diff \tau} = \frac{\diff \P_{11}}{\diff \tau} = \frac{1}{\tau_0} - \P_{11} (\tau) \cdot \frac{1}{\tau_\rho}$\\
+	Lösung: $\rho_A(\tau) = \P_1 (1-\P_1) \exp \left( -\frac{\tau}{\tau_\rho} \right) + \P_1^2$\\
+	Maximales Rauschen falls Besetzung der Niveaus $\P_1 (1-\P_1) = 0.25$
+}
+
+Onsager Prinzip: Betrachtet man die Relaxation einer Störung einer bestimmten Größe, so ist der zeitlicher Ablauf dieser Relaxation gleich der AKF des Rauschens dieser Größe
+
+\sectionbox{
+	\subsection{Rauschen stromdurchflossener Widerstände}
+	Leitfähigkeit änderrt sich durch G/R
+	$W_I(f) = \frac{I_0^2}{N_0^2} W_N(f)$\\
+	
+	
+}
+
+
+\sectionbox{
+	\subsection{1/f Rauschen}
+	Generell: Überlagerung von Bandbegrenzten, gleichmäßigen Rauschen.\\
+	System mit begenzten Energiegehalt in welchem nichtlineare Prozesse für eine Verteilung der Energie auf einem breiten Frequenzbereich sorgen. Daraus folgt 1/f-Rauschen.
+	Wärmeleitung, RC-Rauschen, Diffusionsvorgänge, verteilte Netze\\
+	1/f-Rauschen ist energetisch sehr günstig.
+	
+}
+
+
+\sectionbox{
+	\subsection{Zeitskaleninvarianz}
+	Leistung in einem Frequenzintervall zwischen $f_1$ und $f_2$:\\
+	$P = c \ln\left(\frac{f_2}{f_1}\right)$ \qquad allg. Konstante $c$\\
+	Leistung konstant im relativen Frequenzintervall.
+}
+
+
+\sectionbox{
+	\subsection{Geometrische Abhängigkeit des Rauschens}
+	Bei einem homogenen Volumen $V$ ist die relative Schwankung proportional zu $\frac{1}{V}$\\
+	Bsp. Spannungseinprägung: $\frac{W_i}{I_0^2} = \frac{1}{V} \frac{W_{\vec j}}{\norm{\vec j}^2}$
+	Mit $\Delta U = 0$ und $\Delta E = 0$\\
+	\\
+	Bei einer homogenen Fläche $A$ sind die Schwankungen proportional zu $\frac{1}{A}$
+
+}
+
+
+\sectionbox{
+	\subsection{Hooge-Modell (Mathematisches Modell)}
+	Anzahl der freien Ladungsträger $N$ schwankt\\
+	$\left. \frac{\ol{\Delta I^2}}{I_0^2} \right|_{\Delta U=0} = \left. \frac{\ol{\Delta U^2}}{U_0^2} \right|_{\Delta I=0} = \frac{\ol{\Delta R^2}}{R_0^2} = \frac{\ol{\Delta N^2}}{\ol {N}^2}$
+
+	Überlagerung mehrerer Zeitkonstanten.
+	$W_{N} \propto \ol{\Delta N^2}$ \qquad $W_{N} \propto \frac{1}{f}$\\
+}
+
+\sectionbox{
+	\subsection{McWhorter-Modell (Physikalisches Modell)}
+
+
+}
+
+\section{Übertragung von Rauschen über elektrische Netzwerke}
+% ======================================================================
+\sectionbox{
+	\subsection{Übertragungsfunktion}
+	Achtung: Bei Rauschen betrachten wir Leistungsspektren $W \propto \ol{a^2}$\\
+	Phaseninformationene gehen verloren.\\
+	$W_a(f) = \abs{G(f)}^2 \cdot W_e(f)$ \\
+	Bei Filterung von weißem Rauschen sieht man die Übertragungsfunktion ($\dirac \FT 1$)\\
+	
+	Äquivalente Rauschbandbreite: $B_{\ir eq} = \frac{\int\limits_0^{\infty} \abs{G(f)}^2 \diff f}{\abs{G(f)}^2_{\max}}$\\
+	$\rho_a(0) = \ol{a^2} = W_{\ir e} \cdot \abs{G(f)}^2_{\max} \cdot B_{\ir eq}$\\ 
+
+}
+
+
+\sectionbox{
+	\subsection{Impedanzfeldmethode}
+	Liefert Aussagen über interne Rauschgrößen durch die Schwankungsgrößen an den Klemmen.\\
+	
+	Modellannahmen: Eindimensionale Betrachtung (in $x$ Richtung) räumlich verteilter, linear verknüpfter Rauschquellen (nicht homogen und statistisch unabhängig)\\
+
+
+	Impedanzfeld: $i(x) \ra \diff u_a(x)$ \quad wegen $\diff u = i(x) \cdot \cx z(x)$\\
+	
+	Für untereinander unkorrelierte Rauschgeneratoren gilt:\\
+	$W_i(x,x',f) = w_i(x,f) \cdot \dirac(x-x')$\\
+	$W_u(f) = \int\limits_0^L w_i(x,f) \cdot \abs{z(x)}^2 \diff x$\\
+	   
+		\subsubsection{Beispiel thermisches Rauschen eines Widerstandes}
+		$z(x) = \frac{1}{\sigma A}$ \qquad $w_i(x) = 4 k_{\ir B} T \sigma A$\\
+		$W_u(f) = \int\limits_0^L 4 k_{\ir B} T \frac{\sigma A}{\sigma^2 A^2} \diff x= 4 k_{\ir B} T \frac{L}{\sigma A} = 4 k_{\ir B} T R$
+
+}
+
+\section{Kenngrößen rauschender Virpole}
+
+
+
+\sectionbox{
+	\subsection{Rauschzahl von Zweitoren}
+	Rauschzahl $F = \frac{\SNR_1}{SNR_2} = \frac{N_2}{G \cdot N_1} = \ge 1$\\
+
+	
+
+}
+
+
+\section{Diodenrauschquellen}
+	Eine Diode rauscht ohne angelegte Spannung wie der kleinste Ersatzleitwert ohne Spannung.
+
+
+
+
+	\subsection{Diodenrauschquellen}
+	$i_{\ir eff} = \sqrt{2 e I_0 \Delta f}$
+	$F = 1 + 20 \frac{I_0 R_G}{Volt}$
+
+
+	\subsection{Vergleich von Schrot- und thermisches Rauschen}
+	$\ol{i^2} = K 4 k T g_0 \Delta f$
+
+
+
+	\subsection{Mindestmesszeit}
+	Effektivwert: $\lim\limits_{T \ra \infty} \int_0^T ... \diff t$\\
+	Gleichanteil: $W_{=} = 8B^2W_0^2 \dirac(f)$\\
+	Wechselanteil: $W_\sim = 8 W_0^2 \dirac(B-f)$\\
+	Mittelwert: $\ol A = 2B W_0$\\
+	Schwankungsquadrat: $\ol{a^2} = \frac{2 B W_0^2}{\tau_M}$\\
+	
+
+
+	
+
+
+
+
+
+
+
+Anwendungen logarithmischer Plots:\\
+Semi-log für $y = e^{ax}$. liefert gerade\\
+Doppellog für $\frac{1}{1+\left(\frac{x}{x_0}\right)^\beta}$. Bodediagram.
+Gerade bedeutet?
+
+
+
+	\begin{tabular}{lll}
+	Analytisch & Stochastisch\\
+	Mittelwert & Erwartungswert\\
+	Schwankungsquadrat & Varianz\\
+	Abweichung & Standardabweichung\\
+	\end{tabular}
+
+
+
+
+
+
+	Elektronentemperatur:
+	$w_i = 4 k_{\ir B} T_e G = 4 k_{\ir B} T_e \frac{A e n}{L} \mu$
+
+
+
+
+
+
+
+
+
+% ======================================================================
+\section{Praktikum}
+% ======================================================================
+Op-Amps als invertierender Verstärker
+
+
+
+
+% Ende der Spalten
+\end{multicols}
+
+% Dokumentende
+% ======================================================================
+\end{document}
